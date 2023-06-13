@@ -13,7 +13,7 @@ const allAnswers = [
 	"I would die for that!",
 ]
 
-const checkInput = () => {
+const generateAnswer = () => {
 	error.textContent = ""
 	answer.textContent = ""
 	const questionAsked = input.value
@@ -29,16 +29,16 @@ const checkInput = () => {
 		setTimeout(function () {
 			const span = document.createElement("span")
 			span.textContent = "Answer: "
-			const reply = generateAnswer(allAnswers)
+			const reply = answerPicker(allAnswers)
 			answer.append(span, reply)
 			ballImg.classList.remove("shake-anime")
 		}, 2000)
 	}
 }
 
-const generateAnswer = array => {
+const answerPicker = array => {
 	const index = Math.floor(Math.random() * array.length)
 	return array[index]
 }
 
-ballImg.addEventListener("click", checkInput)
+ballImg.addEventListener("click", generateAnswer)
