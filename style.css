@@ -76,8 +76,10 @@ body {
 }
 
 .question-area .answer {
-	font-size: 21px;
+	font-size: 25px;
+    color: #E0A53F;
 	margin-top: 20px;
+
 }
 
 .question-area .answer span {
