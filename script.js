@@ -13,32 +13,30 @@ const allAnswers = [
 	"I would die for that!",
 ]
 
-const generateAnswer = () => {
+const checkInput = () => {
 	error.textContent = ""
-	answer.textContent = ""
-	const questionAsked = input.value
-	const lastChar = questionAsked.slice(-1)
-	if (questionAsked === "") {
-		error.textContent = "Please type your question in!"
-		answer.textContent = ""
-	} else if (lastChar !== "?") {
-		error.textContent = "'?' is missing at the end of your question!"
-		answer.textContent = ""
+	answer.innerHTML = ""
+	ballImg.classList.remove('shake-anime')
+	if (input.value !== "" && input.value.slice(-1) === "?") {
+		const ans = drawAnswer()
+		answer.innerHTML = `<span>Answer: </span> ${ans}`
+	} else if (input.value !== "" && input.value.slice(-1) !== "?") {
+		error.textContent = 'You need to put "?" at the end of your question.'
 	} else {
-		ballImg.classList.add("shake-anime")
-		setTimeout(function () {
-			const span = document.createElement("span")
-			span.textContent = "Answer: "
-			const reply = answerPicker(allAnswers)
-			answer.append(span, reply)
-			ballImg.classList.remove("shake-anime")
-		}, 2000)
+		error.textContent = "Please type the question in!"
 	}
 }
 
-const answerPicker = array => {
-	const index = Math.floor(Math.random() * array.length)
-	return array[index]
+const drawAnswer = () => {
+	const len = allAnswers.length
+	const index = Math.floor(Math.random() * len)
+	const randAnswer = allAnswers[index]
+	return randAnswer
 }
 
-ballImg.addEventListener("click", generateAnswer)
+const shake = () => {
+	ballImg.classList.add('shake-anime')
+	setTimeout(checkInput, 1000)
+}
+
+ballImg.addEventListener("click", shake)
